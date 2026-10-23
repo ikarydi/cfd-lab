@@ -1,0 +1,41 @@
+# Pre-registered gates. Commit this file BEFORE the first backtest on real
+# data, and do not edit thresholds afterwards. A change means a new file
+# with a new registered_at date and a note on why.
+registered_at: null          # set to the commit date when J signs off
+registered_by: J
+status: draft                # draft -> registered
+
+research_gate:
+  deadline: 2027-03-31
+  evaluated_on: test         # the untouched test period, after all costs
+  min_net_sharpe: 0.7
+  max_drawdown: 0.20
+  min_profitable_instruments: 3
+  of_instruments: [SPX, NDX, DAX, EURUSD]
+  robustness:
+    param_perturbation: 0.20 # every numeric param at x0.8 and x1.2
+    min_sharpe_under_perturbation: 0.35   # proposal: half the headline bar
+    one_bar_delay_min_sharpe: 0.35        # proposal
+  on_fail: stop, publish the negative result, keep the harness for Regime Gym
+
+paper_gate:
+  deadline: 2027-07-31
+  min_months: 3
+  max_duplicate_or_invalid_orders: 0
+  every_risk_limit_tested: true
+
+live_gate:
+  max_initial_capital_eur: 5000
+  months_within_paper_bands_before_adding: 6
+
+risk:
+  risk_per_trade: 0.0075     # 0.5-1% band, midpoint
+  daily_loss_limit: 0.02
+  weekly_loss_limit: 0.05
+  monthly_loss_limit: 0.10
+  max_leverage: 3.0          # notional / equity cap per position
+
+splits:                      # trading windows; indicators warm up on earlier data
+  train: [2011-01-01, 2019-12-31]
+  validation: [2020-01-01, 2022-12-31]
+  test: [2023-01-01, 2026-09-30]

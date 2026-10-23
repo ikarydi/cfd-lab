@@ -1,0 +1,51 @@
+# Cost assumptions per instrument. Values marked VERIFY are placeholders
+# to confirm against IBKR Ireland's CFD pages and your own account before
+# any result is trusted.
+#
+# spread_bps      full bid/ask spread in basis points of price (half is paid per side)
+# slippage_bps    extra adverse fill per side, on top of the half spread
+# commission_pct  per side, percent of notional
+# financing_*     annual rate charged on notional per calendar day held;
+#                 positive = you pay, negative = you receive
+# day_basis       360 for USD/EUR money-market convention
+instruments:
+  SPX:
+    name: S&P 500 (IBUS500)
+    yfinance: "^GSPC"
+    stooq: "^spx"
+    spread_bps: 1.0          # VERIFY
+    slippage_bps: 1.0        # VERIFY
+    commission_pct: 0.005    # IBKR Ireland, IBUS500
+    financing_long: 0.054    # ~5.4%/yr per BrokerChooser, Oct 2026
+    financing_short: 0.0     # conservative: assume no credit on shorts. VERIFY
+    day_basis: 360
+  NDX:
+    name: NASDAQ 100 (IBUST100)
+    yfinance: "^NDX"
+    stooq: "^ndx"
+    spread_bps: 1.5          # VERIFY
+    slippage_bps: 1.5        # VERIFY
+    commission_pct: 0.010    # IBKR Ireland, IBUST100
+    financing_long: 0.054    # assumed same benchmark as SPX. VERIFY
+    financing_short: 0.0     # VERIFY
+    day_basis: 360
+  DAX:
+    name: DAX 40 (IBDE40)
+    yfinance: "^GDAXI"
+    stooq: "^dax"
+    spread_bps: 1.5          # VERIFY
+    slippage_bps: 1.5        # VERIFY
+    commission_pct: 0.005    # IBKR Ireland, IBDE40
+    financing_long: 0.035    # EUR benchmark + markup, rough. VERIFY
+    financing_short: 0.0     # VERIFY
+    day_basis: 360
+  EURUSD:
+    name: EUR/USD
+    yfinance: "EURUSD=X"
+    stooq: "eurusd"
+    spread_bps: 0.5          # VERIFY
+    slippage_bps: 0.5        # VERIFY
+    commission_pct: 0.002    # VERIFY
+    financing_long: 0.015    # rate differential + markup, rough. VERIFY
+    financing_short: 0.015   # VERIFY
+    day_basis: 360
